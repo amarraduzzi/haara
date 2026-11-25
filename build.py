@@ -28,7 +28,7 @@ def art(seed,w=1600,h=900,n=64):
 def make_assets():
     os.makedirs("assets/img",exist_ok=True)
     for i,nm in enumerate(["pano"]+AK):
-        open(f"assets/img/{nm}.svg","w").write(art(11+i*7))
+        if not os.path.exists(f"assets/img/{nm}.jpg"): open(f"assets/img/{nm}.svg","w").write(art(11+i*7))
     open("assets/haara.svg","w").write('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#0a1416"/><g fill="none" stroke-linecap="round" stroke-width="3.4"><path d="M20 12c-9 14 9 26 0 40" stroke="#f1d9a8"/><path d="M32 12c-9 14 9 26 0 40" stroke="#e8b595"/><path d="M44 12c-9 14 9 26 0 40" stroke="#c4785c"/></g></svg>')
 
 def imgfile(n):
