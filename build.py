@@ -35,6 +35,9 @@ def imgfile(n):
     for e in ("jpg","svg"):
         if os.path.exists(f"assets/img/{n}.{e}"): return f"/assets/img/{n}.{e}"
     return None
+def hbg():
+    f=imgfile("hero")
+    return f'<div class="hbg" aria-hidden="true" style="background-image:url({f})"></div><div class="hveil" aria-hidden="true"></div>' if f and f.endswith(".jpg") else ""
 def bg(n):
     f=imgfile(n)
     return f' style="background-image:linear-gradient(180deg,rgba(10,20,22,.55),rgba(10,20,22,.92)),url({f});background-size:cover;background-position:center"' if f else ""
@@ -77,7 +80,7 @@ def lock_svg():
 def home(l):
     t=T[l];w=t["wash"];k=t["ck"];r=t["rt"];m=t["my"];f=t["fq"];n=t["ln"]
     o=head(l,t["title"],t["desc"],paths_home(),f"/{l}/")+header(l,paths_home())
-    o+=f'<section class="hero"><canvas id="strands" aria-hidden="true"></canvas><div class="wrap"><span class="eyebrow">{t["eb"]}</span><h1>{t["h"]}</h1><p>{t["p"]}</p><div class="btns"><a class="btn g" href="#rechner">{t["b1"]}</a>{L(l,"hero",GO[l],"btn o")}</div></div></section>'
+    o+=f'<section class="hero">{hbg()}<canvas id="strands" aria-hidden="true"></canvas><div class="wrap"><span class="eyebrow">{t["eb"]}</span><h1>{t["h"]}</h1><p>{t["p"]}</p><div class="btns"><a class="btn g" href="#rechner">{t["b1"]}</a>{L(l,"hero",GO[l],"btn o")}</div></div></section>'
     # wash
     grp="".join(f'<div class="grp"><span class="gl">{gl}</span><div class="seg" role="group" aria-label="{gl}">'+"".join(f'<button type="button" aria-pressed="{"true" if i==d else "false"}">{x}</button>' for i,x in enumerate(opts))+'</div></div>' for (gl,opts),d in zip(w["g"],[1,0,0]))
     o+=f'<section id="rechner" class="calc"><div class="wrap"><span class="eyebrow">{w["k"]}</span><h2>{w["h"]}</h2><p class="sub">{w["p"]}</p><div class="card rv" id="calc" data-cfg="{js(dict(l=w["l"],u=w["u"],s=w["s"],t=w["t"]))}"><div class="grps">{grp}</div><div class="cres" aria-live="polite"></div><p class="note">{w["note"]} {L(l,"rechner")}</p></div></div></section>'
